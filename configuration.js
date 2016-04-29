@@ -37,7 +37,7 @@ function verify_config() {
     return reject();
   } else {
     return resolve({
-      url: prefs.wallabagUrl,
+      url: prefs.wallabagUrl.replace(/\/$/, ""),
       client_id: prefs.wallabagClientId,
       client_secret: prefs.wallabagSecretId
     });

@@ -16,7 +16,7 @@ var wallabag_server;
 // if we have an URL and an access token
 if (configuration.has_access()) {
   console.log("Access token existing, trying to create a server…");
-  wallabag_server = server.create(prefs.wallabagUrl, prefs.wallabagClientId, prefs.wallabagSecretId, ss.storage.wallabagAccessToken, ss.storage.wallabagRefreshToken);
+  wallabag_server = server.create(prefs.wallabagUrl.replace(/\/$/, ""), prefs.wallabagClientId, prefs.wallabagSecretId, ss.storage.wallabagAccessToken, ss.storage.wallabagRefreshToken);
 }
 
 var button = button_library.create(handleChange);
