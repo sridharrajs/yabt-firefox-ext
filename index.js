@@ -9,6 +9,8 @@ var server = require("server");
 var connection = require("connection");
 var save = require("save");
 var button_library = require("button");
+var contextMenu = require("sdk/context-menu");
+var _ = require("sdk/l10n").get;
 
 // instance with all the information to contact the server
 var wallabag_server;
@@ -55,7 +57,16 @@ var shortcutHotKey = function () {
 shortcutHotKey.set();
 simplePrefs.on('wallabagShortcutKey', shortcutHotKey.reset);
 
-function handleChange() {
+var urlSelectedContextMenuItem = contextMenu.Item({
+  label: _('url_context_menu_saving'),
+  context: contextMenu.SelectorContext("a[href]"),
+  contentScript: 'self.on("click", function (node) {' +
+                 '  self.postMessage(node.href);' +
+                 '});',
+  onMessage: handleChange
+});
+
+function handleChange(customUrl) {
   // if the wallabag server is not defined (unreachable or no connection)
   if (! wallabag_server) {
     console.log("wallabag server undefined, checking configuration…");
@@ -78,7 +89,7 @@ function handleChange() {
           );
           connection_panel.hide();
           button.state('window', {checked: false});
-          handleChange();
+          handleChange(customUrl);
         }
       );
 
@@ -102,7 +113,8 @@ function handleChange() {
     save_panel.show({
         position: button
     });
-    server.post(wallabag_server, tabs.activeTab.url).then(function(data) {
+    var url = typeof(customUrl) === 'string' ? customUrl : tabs.activeTab.url;
+    server.post(wallabag_server, url).then(function(data) {
       save.send_post(save_panel, {
         success: true
       });
@@ -115,12 +127,12 @@ function handleChange() {
           wallabag_server.access_token = data.access_token;
           wallabag_server.refresh_token = data.refresh_token;
           console.log("Access token refreshed.");
-          handleChange();
+          handleChange(customUrl);
         }, function(data) {
           console.log(data);
           console.log("Impossible to refresh the access token.");
           wallabag_server = undefined;
-          handleChange();
+          handleChange(customUrl);
         });
       } else {
         console.log("Impossible to save the article.");
