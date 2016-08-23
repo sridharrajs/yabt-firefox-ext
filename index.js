@@ -89,7 +89,7 @@ function handleChange(customUrl) {
           );
           connection_panel.hide();
           button.state('window', {checked: false});
-          handleChange();
+          handleChange(customUrl);
         }
       );
 
@@ -127,12 +127,12 @@ function handleChange(customUrl) {
           wallabag_server.access_token = data.access_token;
           wallabag_server.refresh_token = data.refresh_token;
           console.log("Access token refreshed.");
-          handleChange();
+          handleChange(customUrl);
         }, function(data) {
           console.log(data);
           console.log("Impossible to refresh the access token.");
           wallabag_server = undefined;
-          handleChange();
+          handleChange(customUrl);
         });
       } else {
         console.log("Impossible to save the article.");
