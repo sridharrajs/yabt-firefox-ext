@@ -123,7 +123,7 @@ configuration.get_credentials().then(function(credentials) {
           console.log("Access token expired. Trying to refresh with " + wallabag_server.client_id + " and " + wallabag_server.client_secret);
           connection.refresh(wallabag_server.url, wallabag_server.client_id, wallabag_server.client_secret, wallabag_server.refresh_token).then(function(data) {
             console.log(data);
-            configuration.set(data.access_token, data.refresh_token);
+            configuration.set(wallabag.url, data.access_token, data.refresh_token);
             wallabag_server.access_token = data.access_token;
             wallabag_server.refresh_token = data.refresh_token;
             console.log("Access token refreshed.");
