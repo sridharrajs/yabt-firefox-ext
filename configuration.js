@@ -9,6 +9,8 @@ var preferencesUtils = require("sdk/preferences/utils");
 var self = require("sdk/self");
 var urls = require('sdk/url');
 
+var tokensSeparator = ',';
+
 function get_credentials() {
   return new Promise(function(resolve, reject) {
     passwords.search({
@@ -18,7 +20,11 @@ function get_credentials() {
           reject();
         } else {
           if(credentials.length === 1) {
-            resolve(credentials[0]);
+            var tokens = credentials[0].password.split(tokensSeparator);
+            resolve({
+              access_token: tokens[0],
+              refresh_token: tokens[1]
+            });
           } else {
             resolve(credentials);
           }
@@ -41,8 +47,8 @@ function reset_credentials() {
  * Check if the configuration is ok for connection
  */
 function has_access(credentials) {
-  console.log(prefs.wallabagUrl, prefs.wallabagClientId, prefs.wallabagSecretId, credentials.password, credentials.realm, urls.isValidURI(prefs.wallabagUrl));
-  return prefs.wallabagUrl && prefs.wallabagClientId && prefs.wallabagSecretId && credentials.password && credentials.realm && urls.isValidURI(prefs.wallabagUrl);
+  console.log(prefs.wallabagUrl, prefs.wallabagClientId, prefs.wallabagSecretId, credentials.access_token, credentials.refresh_token, urls.isValidURI(prefs.wallabagUrl));
+  return prefs.wallabagUrl && prefs.wallabagClientId && prefs.wallabagSecretId && credentials.access_token && credentials.refresh_token && urls.isValidURI(prefs.wallabagUrl);
 }
 
 /**
@@ -76,8 +82,8 @@ function verify_config() {
 function set(wallabag_url, wallabag_access_token, wallabag_refresh_token) {
   passwords.store({
     username: wallabag_url,
-    password: wallabag_access_token,
-    realm: wallabag_refresh_token
+    password: wallabag_access_token + tokensSeparator + wallabag_refresh_token,
+    realm: 'API Tokens'
   });
 }
 

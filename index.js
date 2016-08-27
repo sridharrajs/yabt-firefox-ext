@@ -18,7 +18,7 @@ configuration.get_credentials().then(function(credentials) {
   // if we have an URL and an access token
   if (configuration.has_access(credentials)) {
     console.log("Access token existing, trying to create a server…");
-    wallabag_server = server.create(prefs.wallabagUrl.replace(/\/$/, ""), prefs.wallabagClientId, prefs.wallabagSecretId, credentials.password, credentials.realm);
+    wallabag_server = server.create(prefs.wallabagUrl.replace(/\/$/, ""), prefs.wallabagClientId, prefs.wallabagSecretId, credentials.access_token, credentials.refresh_token);
   }
 
   var button = button_library.create(handleChange);
