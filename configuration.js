@@ -35,11 +35,15 @@ function get_credentials() {
 }
 
 function reset_credentials() {
-  passwords.search({
-    username: prefs.wallabagUrl,
-    onComplete: function onComplete(credentials) {
-      credentials.forEach(passwords.remove);
-    }
+  console.log('resetting credentials');
+  return new Promise(function(resolve, reject) {
+    passwords.search({
+      username: prefs.wallabagUrl,
+      onComplete: function onComplete(credentials) {
+        credentials.forEach(passwords.remove);
+        resolve(true);
+      }
+    });
   });
 }
 
