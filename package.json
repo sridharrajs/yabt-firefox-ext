@@ -1,46 +1,31 @@
 {
-  "title": "wallabag v2",
-  "name": "wallabag-v2",
-  "version": "0.0.11",
-  "description": "Post webpages to your wallabag v2 server",
-  "author": "Thibaud Dauce",
-  "homepage": "https://wallabag.org",
-  "icon": "./data/logo-64.png",
-  "icon64": "./data/logo-64.png",
-  "main": "index.js",
-  "engines": {
-    "firefox": ">=38.0a1",
-    "fennec": ">=38.0a1"
-  },
-  "license": "MIT",
-  "keywords": [
-    "read", "wallabag"
-  ],
-  "preferences": [
-    {
-        "name": "wallabagUrl",
-        "title": "wallabag URL",
-        "type": "string",
-        "value": ""
+    "title": "wallabag v2",
+    "name": "wallabag-v2",
+    "version": "0.0.11",
+    "description": "Post webpages to your wallabag v2 server",
+    "author": "Thibaud Dauce",
+    "homepage": "https://wallabag.org",
+    "icon": "./data/logo-64.png",
+    "icon64": "./data/logo-64.png",
+    "main": "index.js",
+    "engines": {
+	"firefox": ">=38.0a1",
+	"fennec": ">=38.0a1"
     },
-    {
-        "name": "wallabagClientId",
-        "title": "Client ID",
+    "license": "MIT",
+    "keywords": [
+	"read", "wallabag"
+    ],
+    "preferences": [{
+        "name": "yabtToken",
+        "title": "Token",
         "type": "string",
-        "value": ""
-    },
-    {
-        "name": "wallabagSecretId",
-        "title": "Secret ID",
-        "type": "string",
-        "value": ""
-    },
-    {
-        "name": "wallabagShortcutKey",
-        "title": "Shortcut key",
-        "description": "Shortcut will be ctrl-alt-(chosen key value)",
-        "type": "string",
-        "value": "s"
-    }
-  ]
+        "value": ""	    
+    }, {
+	"name": "wallabagShortcutKey",
+	"title": "Shortcut key",
+	"description": "Shortcut will be ctrl-alt-(chosen key value)",
+	"type": "string",
+	"value": "s"
+    }]
 }
