@@ -1,11 +1,9 @@
 var form = document.getElementById("connectionForm");
 connectionForm.addEventListener('submit', function (event) {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    var token = document.getElementById("token").value;
 
     self.port.emit("connection", {
-        username: username,
-        password: password
+        token: token
     });
 }, false);
 
