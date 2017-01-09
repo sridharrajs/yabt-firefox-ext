@@ -4,14 +4,14 @@ var passwords = require("sdk/passwords");
 var token = 'demo';
 
 function getToken() {
-    return token;
+  return token;
 }
 
 function setToken(token) {
-    passwords.store({
-        token: token,
-        realm: 'API Tokens'
-    });
+  passwords.store({
+    token: token,
+    realm: 'API Tokens'
+  });
 }
 
 exports.setToken = setToken;
