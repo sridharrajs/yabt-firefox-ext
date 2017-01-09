@@ -1,3 +1,8 @@
 *.xpi
 .tern-port
 .idea
+
+# emacs
+*~
+*#
+.#*
